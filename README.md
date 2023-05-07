@@ -36,3 +36,4 @@ This commend will create a dist folder. This is the folder containing your whole
 
 ## More informations about folder structure and deploying your application you can find inside INVO Academy Knowledge Base
 # Passwordo
+# Passwordo
