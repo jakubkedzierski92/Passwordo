@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { TheHeader } from "..";
 import { BaseCard } from "../../../../global-components";
-import TheFilters from "../../interfaces/TheFilters/TheFilters.vue";
-import TheSlider from "../../interfaces/TheSlider/TheSlider.vue";
+import PasswordGenerator from "../../interfaces/PasswordGenerator.vue";
 </script>
 
 <template>
   <BaseCard>
     <TheHeader title="Password generator" />
-    <TheSlider />
-    <TheFilters />
+    <PasswordGenerator />
   </BaseCard>
 </template>
 
