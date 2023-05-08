@@ -9,7 +9,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "BaseCard",
-  // define component properties and methods here
 });
 </script>
 
@@ -21,5 +20,6 @@ export default defineComponent({
   width: 80%;
   margin: auto;
   margin-top: 40px;
+  box-shadow: 0 0 4px var(--color-black);
 }
 </style>
