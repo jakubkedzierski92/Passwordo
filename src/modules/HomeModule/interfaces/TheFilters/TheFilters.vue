@@ -78,9 +78,13 @@ export default defineComponent({
 </script>
 
 <style lang="sass" scoped>
+input
+    margin-right: 10px
+    border-radius: 12px
 label
     padding: 10px
     padding-left: 0
+    color: var(--color-body)
 #filters
     display: flex
     padding: 10px

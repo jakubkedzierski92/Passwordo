@@ -30,6 +30,11 @@
       generatePassword();
     "
   />
+  <PasswordStrength
+    :generatePasswordStrength="generatePasswordStrength"
+    :passwordInformation="passwordInformation"
+    :information="info"
+  />
   <button id="btn" @click="generatePassword">Generate</button>
   <section id="password">
     <span id="holder">{{ generatedPassword }}</span>
@@ -37,14 +42,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import TheFilters from "./TheFilters/TheFilters.vue";
 import TheSlider from "./TheSlider/TheSlider.vue";
+import PasswordStrength from "./PasswordStrength/PasswordStrength.vue";
 import characters from "../stores/characters";
 
 const minLength = 4;
 const maxLength = 16;
 const passwordLength = ref(6);
+
+let info = "";
 
 const generatedPassword = ref("");
 const includeUppercase = ref(true);
@@ -76,18 +84,32 @@ const generatePassword = () => {
   }
 };
 generatePassword();
+
+const generatePasswordStrength = computed(() => {
+  if (passwordLength.value < 8) {
+    return "weak";
+  } else if (passwordLength.value >= 8 && passwordLength.value < 12) {
+    return "medium";
+  } else {
+    return "strong";
+  }
+});
+
+const passwordInformation = computed(() => {
+  if (generatePasswordStrength.value === "weak") {
+    return (info = "Low password strength");
+  }
+  if (generatePasswordStrength.value === "medium") {
+    return (info = "Average password strength");
+  } else return (info = "Strong password strength");
+});
 </script>
 
 <style lang="sass">
+span
+    color: var(--color-body)
 #holder
   color: var(--color-black)
-
-#filters
-  display: flex
-  flex-direction: column
-  padding: 10px
-  padding-left: 0
-
 
 #password
   margin-top: 20px
@@ -102,7 +124,22 @@ generatePassword();
   border-radius: 12px
   padding: 12px
   width: 100%
+  border: none
 
   &:hover
     background-color: var(--color-black-on-hover)
+
+.weak
+    background-color: var(--color-red)
+
+.medium
+    background-color: var(--color-yellow)
+
+.strong
+    background-color: var(--color-green)
+#info
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 5px
 </style>
