@@ -1,23 +1,23 @@
 <template>
-  <div>
+  <div id="filters">
     <section id="filter">
       <label>
         <input type="checkbox" v-model="localIncludeUppercase" />
-        <span>Uppercase</span>
+        <span>Include Uppercase Letters</span>
       </label>
       <label>
         <input type="checkbox" v-model="localIncludeLowercase" />
-        <span>Lowercase</span>
+        <span>Include Lowercase Letters</span>
       </label>
     </section>
     <section id="filter">
       <label>
         <input type="checkbox" v-model="localIncludeNumbers" />
-        <span>Numbers</span>
+        <span>Include Numbers</span>
       </label>
       <label>
         <input type="checkbox" v-model="localIncludeSpecial" />
-        <span>Special characters</span>
+        <span>Include Symbols</span>
       </label>
     </section>
   </div>
@@ -76,3 +76,19 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="sass" scoped>
+label
+    padding: 10px
+    padding-left: 0
+#filters
+    display: flex
+    padding: 10px
+
+#filter
+  display: flex
+  flex-direction: column
+  padding: 10px
+  padding-left: 0
+  width: 20%
+</style>
