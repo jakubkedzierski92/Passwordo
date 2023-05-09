@@ -46,8 +46,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-#slider {
-  width: 100%;
-}
+<style lang="sass" scoped>
+#slider
+  width: 100%
 </style>
