@@ -8,6 +8,7 @@
       <div
         class="strengthBox"
         :class="{
+          superweak: generatePasswordStrength === 'superweak',
           weak: generatePasswordStrength === 'weak',
           medium: generatePasswordStrength === 'medium',
           strong: generatePasswordStrength === 'strong',
@@ -51,13 +52,18 @@ export default defineComponent({
       required: true,
     },
     passwordInformation: {
-      type: String,
+      type: Function,
       required: true,
     },
     information: {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      isExpanded: false,
+    };
   },
   computed: {
     info() {

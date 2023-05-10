@@ -33,75 +33,104 @@
   <PasswordStrength
     :generatePasswordStrength="generatePasswordStrength"
     :passwordInformation="passwordInformation"
-    :information="info"
+    :information="passwordInformation()"
   />
-  <button id="btn" @click="generatePassword">Generate</button>
   <section id="password">
     <span id="holder">{{ generatedPassword }}</span>
   </section>
+  <button id="btn" @click="copyPassword">Copy Password</button>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from "vue";
+<script lang="ts">
+import { defineComponent, ref, computed } from "vue";
 import TheFilters from "./TheFilters/TheFilters.vue";
 import TheSlider from "./TheSlider/TheSlider.vue";
 import PasswordStrength from "./PasswordStrength/PasswordStrength.vue";
 import characters from "../stores/characters";
 
-const minLength = 4;
-const maxLength = 16;
-const passwordLength = ref(6);
+export default defineComponent({
+  name: "PasswordGenerator",
+  components: { TheFilters, TheSlider, PasswordStrength },
+  setup() {
+    const minLength = 4;
+    const maxLength = 16;
+    const passwordLength = ref(6);
 
-let info = "";
+    const generatedPassword = ref("");
+    const includeUppercase = ref(true);
+    const includeLowercase = ref(false);
+    const includeNumbers = ref(true);
+    const includeSpecial = ref(true);
 
-const generatedPassword = ref("");
-const includeUppercase = ref(true);
-const includeLowercase = ref(false);
-const includeNumbers = ref(true);
-const includeSpecial = ref(true);
+    const { lowercaseChars, uppercaseChars, numbers, symbols } = characters;
 
-const { lowercaseChars, uppercaseChars, numbers, symbols } = characters;
+    const generatePassword = () => {
+      generatedPassword.value = "";
+      let randomChars = "";
+      if (includeUppercase.value) {
+        randomChars += uppercaseChars;
+      }
+      if (includeLowercase.value) {
+        randomChars += lowercaseChars;
+      }
+      if (includeNumbers.value) {
+        randomChars += numbers;
+      }
+      if (includeSpecial.value) {
+        randomChars += symbols;
+      }
 
-const generatePassword = () => {
-  generatedPassword.value = "";
-  let randomChars = "";
-  if (includeUppercase.value) {
-    randomChars += uppercaseChars;
-  }
-  if (includeLowercase.value) {
-    randomChars += lowercaseChars;
-  }
-  if (includeNumbers.value) {
-    randomChars += numbers;
-  }
-  if (includeSpecial.value) {
-    randomChars += symbols;
-  }
+      for (let i = 0; i < passwordLength.value; i++) {
+        const randomIndex = Math.floor(Math.random() * randomChars.length);
+        generatedPassword.value += randomChars[randomIndex];
+      }
+    };
+    generatePassword();
 
-  for (let i = 0; i < passwordLength.value; i++) {
-    const randomIndex = Math.floor(Math.random() * randomChars.length);
-    generatedPassword.value += randomChars[randomIndex];
-  }
-};
-generatePassword();
+    const copyPassword = () => {
+      navigator.clipboard.writeText(generatedPassword.value);
+    };
 
-const generatePasswordStrength = computed(() => {
-  if (passwordLength.value < 8) {
-    return "weak";
-  } else if (passwordLength.value >= 8 && passwordLength.value < 12) {
-    return "medium";
-  } else {
-    return "strong";
-  }
-});
+    const generatePasswordStrength = computed(() => {
+      if (passwordLength.value < 6) {
+        return "superweak";
+      } else if (passwordLength.value < 9) {
+        return "weak";
+      } else if (passwordLength.value >= 9 && passwordLength.value < 12) {
+        return "medium";
+      } else {
+        return "strong";
+      }
+    });
 
-const passwordInformation = computed(() => {
-  if (generatePasswordStrength.value === "weak") {
-    return (info = "Low password strength");
-  }
-  if (generatePasswordStrength.value === "medium") {
-    return (info = "Average password strength");
-  } else return (info = "Strong password strength");
+    const passwordInformation = () => {
+      if (generatePasswordStrength.value === "superweak") {
+        return "Low password strength";
+      }
+      if (generatePasswordStrength.value === "weak") {
+        return "Low password strength";
+      }
+      if (generatePasswordStrength.value === "medium") {
+        return "Average password strength";
+      }
+      return "Strong password strength";
+    };
+
+    return {
+      minLength,
+      maxLength,
+      passwordLength,
+      generatedPassword,
+      includeUppercase,
+      includeLowercase,
+      includeNumbers,
+      includeSpecial,
+      generatePassword,
+      copyPassword,
+      generatePasswordStrength,
+      passwordInformation,
+    };
+  },
 });
 </script>
 
@@ -125,10 +154,12 @@ span
   padding: 12px
   width: 100%
   border: none
+  margin-top: 40px
 
   &:hover
     background-color: var(--color-black-on-hover)
-
+.superweak
+    background-color: var(--color-red)
 .weak
     background-color: var(--color-red)
 
