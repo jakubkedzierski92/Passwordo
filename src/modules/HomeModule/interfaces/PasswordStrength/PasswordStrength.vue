@@ -1,5 +1,12 @@
 <template>
-  <section id="passwordStrength">
+  <section
+    id="passwordStrength"
+    :class="[
+      'passwordStrength-' + generatePasswordStrength,
+      { expanded: isExpanded },
+    ]"
+    :style="{ backgroundColor: bgColor }"
+  >
     <div id="info">
       <TheParagraph text="Strength" />
       <span :class="passwordInformation">{{ info }}</span>
@@ -63,11 +70,41 @@ export default defineComponent({
   data() {
     return {
       isExpanded: false,
+      bgColor: "var(--color-grey)",
     };
   },
   computed: {
     info() {
       return this.information;
+    },
+    passwordStrengthClass() {
+      return "passwordStrength-" + this.generatePasswordStrength;
+    },
+  },
+  watch: {
+    generatePasswordStrength(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.isExpanded = true;
+        this.bgColor = "white";
+        this.$nextTick(() => {
+          const passwordStrengthElement =
+            document.getElementById("passwordStrength");
+          if (passwordStrengthElement) {
+            passwordStrengthElement.style.transform = "scale(1.15)";
+          }
+        });
+      }
+      setTimeout(() => {
+        this.isExpanded = false;
+        this.bgColor = "var(--color-grey)";
+        this.$nextTick(() => {
+          const passwordStrengthElement =
+            document.getElementById("passwordStrength");
+          if (passwordStrengthElement) {
+            passwordStrengthElement.style.transform = "";
+          }
+        });
+      }, 1000);
     },
   },
 });
@@ -87,7 +124,34 @@ export default defineComponent({
     width: 24%
     border: solid 1px var(--color-stroke)
     border-radius: 12px
+    margin-bottom: 20px
+    transition: width 0.5s, background-color 0.5s
 
 #passwordStrength
     margin: 20px 0 60px 0
+    padding: 10px
+    padding-left: 0
+    border-radius: 12px
+    transition: height 0.5s, background-color 0.5s
+
+.passwordStrength-superweak
+  background-color: var(--color-white)
+  transition-property: opacity, left, top, height
+  transition-duration: 3s, 5s
+
+
+.passwordStrength-weak
+  background-color: var(--color-white)
+  transition-property: opacity, left, top, height
+  transition-duration: 3s, 5s
+
+
+.passwordStrength-medium
+  background-color: var(--color-white)
+  transition-property: opacity, left, top, height
+  transition-duration: 3s, 5s
+
+
+.passwordStrength-strong
+  background-color: var(--color-white)
 </style>
