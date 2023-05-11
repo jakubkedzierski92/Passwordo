@@ -91,6 +91,8 @@ export default defineComponent({
             document.getElementById("passwordStrength");
           if (passwordStrengthElement) {
             passwordStrengthElement.style.transform = "scale(1.15)";
+            passwordStrengthElement.style.transition =
+              "transform 0.3s ease-in-out";
           }
         });
       }
@@ -102,6 +104,8 @@ export default defineComponent({
             document.getElementById("passwordStrength");
           if (passwordStrengthElement) {
             passwordStrengthElement.style.transform = "";
+            passwordStrengthElement.style.transition =
+              "transform 0.3s ease-in-out";
           }
         });
       }, 1000);
@@ -132,24 +136,20 @@ export default defineComponent({
     padding: 10px
     padding-left: 0
     border-radius: 12px
-    transition: height 0.5s, background-color 0.5s
 
 .passwordStrength-superweak
   background-color: var(--color-white)
-  transition-property: opacity, left, top, height
-  transition-duration: 3s, 5s
+
 
 
 .passwordStrength-weak
   background-color: var(--color-white)
-  transition-property: opacity, left, top, height
-  transition-duration: 3s, 5s
+
 
 
 .passwordStrength-medium
   background-color: var(--color-white)
-  transition-property: opacity, left, top, height
-  transition-duration: 3s, 5s
+
 
 
 .passwordStrength-strong
