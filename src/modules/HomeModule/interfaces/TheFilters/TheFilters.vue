@@ -81,10 +81,17 @@ export default defineComponent({
 input
     margin-right: 10px
     border-radius: 12px
+
+label:checked
+    background-color: var(--color-black)
+    border-radius: 12px
+    color: black
+
 label
     padding: 10px
     padding-left: 0
     color: var(--color-body)
+
 #filters
     display: flex
     padding: 10px

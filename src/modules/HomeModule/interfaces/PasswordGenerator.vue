@@ -36,9 +36,14 @@
     :information="passwordInformation()"
   />
   <section id="password">
-    <span id="holder">{{ generatedPassword }}</span>
+    <span id="holder"
+      >{{ generatedPassword }}
+      <button id="refresh" @click="generatePassword"><refresh /></button
+    ></span>
   </section>
-  <button id="btn" @click="copyPassword">Copy Password</button>
+  <button id="btn" @click="copyPassword">
+    <span id="copyStyle"><copy /><span id="copyText">Copy Password</span></span>
+  </button>
 </template>
 
 <script lang="ts">
@@ -47,10 +52,12 @@ import TheFilters from "./TheFilters/TheFilters.vue";
 import TheSlider from "./TheSlider/TheSlider.vue";
 import PasswordStrength from "./PasswordStrength/PasswordStrength.vue";
 import characters from "../stores/characters";
+import copy from "../../../assets/images/copy.vue";
+import refresh from "../../../assets/images/refresh.vue";
 
 export default defineComponent({
   name: "PasswordGenerator",
-  components: { TheFilters, TheSlider, PasswordStrength },
+  components: { TheFilters, TheSlider, PasswordStrength, copy, refresh },
   setup() {
     const minLength = 4;
     const maxLength = 16;
@@ -139,6 +146,9 @@ span
     color: var(--color-body)
 #holder
   color: var(--color-black)
+  display: flex
+  justify-content: space-between
+  align-items: center
 
 #password
   margin-top: 20px
@@ -173,4 +183,17 @@ span
     justify-content: space-between
     align-items: center
     padding: 5px
+
+#copyText
+    margin-left: 10px
+    color: var(--color-white)
+
+#copyStyle
+    display: flex
+    justify-content: center
+    align-items: center
+
+#refresh
+    border: none
+    background-color: transparent
 </style>
