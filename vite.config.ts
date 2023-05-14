@@ -15,6 +15,7 @@ const resolve = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/Passwordo/",
   css: {
     devSourcemap: true,
   },
