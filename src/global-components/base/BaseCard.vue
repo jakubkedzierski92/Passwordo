@@ -21,5 +21,9 @@ export default defineComponent({
   margin: auto;
   margin-top: 40px;
   box-shadow: 0 0 4px var(--color-black);
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 }
 </style>

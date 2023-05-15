@@ -3,7 +3,7 @@
     <section id="filter">
       <label>
         <input type="checkbox" v-model="localIncludeUppercase" />
-        <span>Include Uppercase Letterssss</span>
+        <span>Include Uppercase Letters</span>
       </label>
       <label>
         <input type="checkbox" v-model="localIncludeLowercase" />
@@ -96,10 +96,26 @@ label
     display: flex
     padding: 10px
 
+    @media (max-width: 768px)
+      flex-direction: column
+      padding-top: 20px
+
+
 #filter
   display: flex
   flex-direction: column
   padding: 10px
   padding-left: 0
   width: 20%
+
+  @media (max-width: 768px)
+      flex-direction: column
+      width: 100%
+      padding: 0
+
+  @media (min-width: 768px) and (max-width: 1250px)
+      width: 50%
+
+  @media (min-width: 1250px)
+    width: 30%
 </style>

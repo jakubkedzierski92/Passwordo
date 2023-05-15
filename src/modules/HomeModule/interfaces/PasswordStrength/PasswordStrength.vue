@@ -9,7 +9,7 @@
   >
     <div id="info">
       <TheParagraph text="Strength" />
-      <span :class="passwordInformation">{{ info }}</span>
+      <span id="info" :class="passwordInformation">{{ info }}</span>
     </div>
     <div id="strengthVolume">
       <div
@@ -115,6 +115,10 @@ export default defineComponent({
 </script>
 
 <style lang="sass">
+#info
+  @media (max-width: 768px)
+    font-size: 14px
+
 #strengthVolume
   display: flex
   align-items: flex-end
