@@ -3,7 +3,7 @@
     <section id="filter">
       <label>
         <input type="checkbox" v-model="localIncludeUppercase" />
-        <span>Include Uppercase Letters</span>
+        <span>Include Uppercase Letterssss</span>
       </label>
       <label>
         <input type="checkbox" v-model="localIncludeLowercase" />
